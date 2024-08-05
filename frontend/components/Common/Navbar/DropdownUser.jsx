@@ -19,7 +19,7 @@ const DropdownUser = ({ user }) => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black">
-            {`${user.first_name} ${user.last_name}`.toUpperCase()}
+            {`${user.fullName}`.toUpperCase()}
           </span>
         </span>
 
