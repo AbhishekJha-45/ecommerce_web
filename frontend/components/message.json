@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "message": "Hello, World!"
+    },
+    {
+        "id": 2,
+        "message": "Hello, Universe!"
+    },
+    {
+        "id": 3,
+        "message": "Hello, Galaxy!"
+    },
+    {
+        "id": 4,
+        "message": "Hello, Solar System!"
+    },
+    {
+        "id": 5,
+        "message": "Hello, Planet!"
+    }
+]
