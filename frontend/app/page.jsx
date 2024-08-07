@@ -6,13 +6,7 @@ function page() {
   return (
     <main className="w-full">
       <Navbar />
-<<<<<<< HEAD
-      {/* <h1>Homepage</h1> */}
       <Home />
-      {/* <Carousel /> */}
-=======
-      <h1>Homepage</h1>
->>>>>>> c01b6cb9fe3a448219abf9c3e39d12d8fee9ef1a
       <Footer />
     </main>
   );
