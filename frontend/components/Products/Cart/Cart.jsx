@@ -1,16 +1,14 @@
 "use client";
-import { useDispatch, useSelector } from "react-redux";
+
 import Item from "../../../components/Products/Cart/Item";
 import { FaTags } from "react-icons/fa6";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import getToken from "../../../utils/getToken";
 import axios from "axios";
-import Cookies from "js-cookie";
-import { initialCart } from "store/slice/cartSlice";
-const access_token = Cookies.get("access_token");
 function Cart() {
-  const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart.cart);
+  const access_token = getToken("access_token");
+  // const cart = useSelector((state) => state.cart.cart);
   const [charges, setCharges] = useState({
     shipping: 79,
     platform: 5,
@@ -18,42 +16,26 @@ function Cart() {
     donation: 0,
     totalMrp: 0,
   });
-  const fetchCart = async () => {
+  const fetchCart = async (access_token) => {
     if (!access_token) {
       alert("Please login to access cart");
-      window.location.href="/auth/login"
+      window.location.href = "/auth/login";
       return;
     }
     const res = await axios.get(
       `${process.env.NEXT_PUBLIC_BASE_URL}/cart/get-cart`,
       { headers: { Authorization: `Bearer ${access_token}` } }
     );
+    console.log(res.data.data.cart);
     if (res.status === 200) {
-      dispatch(initialCart(res.data.data));
+      console.log("to be pushed")
     }
     return res.data.data;
   };
   useEffect(() => {
-    fetchCart();
+    fetchCart(access_token);
   }, []);
-  const calculateTotalMrp = () => {
-    let totalMrp = 0;
-    cart.forEach((item) => {
-      totalMrp = item.quantity * item.price + totalMrp;
-    });
-    totalMrp = totalMrp.toFixed(2);
-    setCharges({ ...charges, totalMrp });
-  };
 
-  const calculateTotal = () => {
-    let total = 0;
-    cart.forEach((item) => {
-      total = item.quantity * item.price + total;
-    });
-    total = total + charges.shipping + charges.platform + charges.donation;
-    return total;
-  };
-  const total = calculateTotal();
 
   const handleDonation = (amount) => {
     setCharges({ ...charges, donation: amount });
@@ -87,7 +69,7 @@ function Cart() {
           <div className="flex gap-x-5">
             <input type="checkbox" name="itemsselected" id="itemsselected" />
             <label htmlFor="itemsselected">
-              {cart.length} / {cart.length} Items Selected
+              {/* {cart.length} / {cart.length} Items Selected */}
             </label>
           </div>
           <div className="flex gap-x-5">
@@ -96,7 +78,7 @@ function Cart() {
           </div>
         </div>
         <div className="w-full flex flex-col gap-y-2 pb-3">
-          <Item cart={cart} calculateTotal={calculateTotalMrp} />
+          {/* <Item cart={cart} calculateTotal={calculateTotalMrp} /> */}
         </div>
         {/* <div className="">4</div> */}
       </section>
@@ -156,7 +138,7 @@ function Cart() {
               Know More
             </button>
             <div>
-              <p>Price Details {cart.length} Items</p>
+              {/* <p>Price Details {cart.length} Items</p> */}
               <p className="flex justify-between">
                 Total Mrp: <span>₹ {charges.totalMrp}</span>
               </p>
@@ -178,7 +160,7 @@ function Cart() {
             </div>
             <div className="border-t-[1px] mt-5 border-[#e0e0e0] py-4 flex flex-col gap-y-3">
               <h3 className="flex justify-between">
-                Total Amount <span>₹ {total.toFixed(2)}</span>
+                {/* Total Amount <span>₹ {total.toFixed(2)}</span> */}
               </h3>
               <button
                 type="button"

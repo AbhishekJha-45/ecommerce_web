@@ -120,18 +120,10 @@ const loginUser = asyncHandler(async (req, res) => {
     const loggedInUser = await User.findById(isExistingUser._id).select(
       "-password -refreshToken"
     );
-    const accessTokenExpiry = parseInt(process.env.ACCESS_TOKEN_EXPIRY);
-    const refreshTokenExpiry = parseInt(process.env.REFRESH_TOKEN_EXPIRY);
+   // const accessTokenExpiry = parseInt(process.env.ACCESS_TOKEN_EXPIRY);
+    //const refreshTokenExpiry = parseInt(process.env.REFRESH_TOKEN_EXPIRY);
     return res
       .status(200)
-      .cookie("refreshToken", refreshToken, {
-        ...options,
-        maxAge: refreshTokenExpiry,
-      })
-      .cookie("accessToken", accessToken, {
-        ...options,
-        maxAge: accessTokenExpiry,
-      })
       .json(
         new APiResponse(200, "User logged in Successfully", {
           user: loggedInUser,

@@ -22,20 +22,29 @@ const LoginPage = () => {
       const resposne = await axios.post(`${BASE_URL}/users/login`, user, {
         withCredentials: true,
       });
-      console.log(resposne.data.data);
+      // console.log(resposne.data.data);
       if (resposne.data.status === 200) {
         dispatch(login(resposne.data.data.user));
-        Cookies.set("access_token", resposne.data.data.access_token, {
-          expires: 1,
-          sameSite: "Lax",
-          secure: false,
-        });
-        Cookies.set("refresh_token", resposne.data.data.refresh_token, {
-          expires: 14,
-          sameSite: "Lax",
-          secure: false,
-        });
-        window.location.href = "/";
+        // console.table("Recieved data", resposne.data.data.accessToken);
+        const isExistingAccessToken = Cookies.get("refresh_token");
+        if (!isExistingAccessToken) {
+          Cookies.set("access_token", resposne.data.data.accessToken, {
+            expires: 1,
+            sameSite: "Lax",
+            secure: false,
+            httpOnly: false,
+          });
+        }
+        const isExistingRefreshToken = Cookies.get("refresh_token");
+        if (!isExistingRefreshToken) {
+          Cookies.set("refresh_token", resposne.data.data.refreshToken, {
+            expires: 14,
+            sameSite: "Lax",
+            secure: false,
+            httpOnly: false,
+          });
+          window.location.href = "/";
+        }
       } else if (resposne.data.status === 401) {
         setError("Invalid username or password");
       }
