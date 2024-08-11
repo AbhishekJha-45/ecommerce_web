@@ -21,10 +21,11 @@ function Cart() {
   const fetchCart = async () => {
     if (!access_token) {
       alert("Please login to access cart");
+      window.location.href="/auth/login"
       return;
     }
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/order/items/get-order-items`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/cart/get-cart`,
       { headers: { Authorization: `Bearer ${access_token}` } }
     );
     if (res.status === 200) {

@@ -35,7 +35,7 @@ const LoginPage = () => {
           sameSite: "Lax",
           secure: false,
         });
-        // window.location.href = "/";
+        window.location.href = "/";
       } else if (resposne.data.status === 401) {
         setError("Invalid username or password");
       }
