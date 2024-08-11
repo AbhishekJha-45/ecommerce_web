@@ -16,7 +16,7 @@ export const menuItems = [
     title: "About Us",
   },
   {
-    link: "/products",
-    title: "Products",
+    link: "/catrgory",
+    title: "Categories",
   },
 ];

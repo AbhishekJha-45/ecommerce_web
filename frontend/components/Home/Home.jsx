@@ -1,5 +1,3 @@
-import React from "react";
-import useState from "react";
 import { FaChevronCircleRight } from "react-icons/fa";
 import { IoAdd } from "react-icons/io5";
 import { Lato } from "next/font/google";
@@ -11,37 +9,63 @@ const lato = Lato({
   weight: "400",
 });
 
-//Images:---
-
-import brinjal from "/public/brinjal.jpg";
-import ladyfinger from "/public/lady_finger.jpg";
-import tomato from "/public/tomatoes.jpg";
-import cauliFlower from "/public/cauliflower.jpg";
-import potato from "/public/potato.jpg";
-import onion from "/public/onion.jpg";
-import papaya from "/public/fruits/papaya.jpg";
-import apple from "/public/fruits/apple.jpg";
-import banana from "/public/fruits/banana.jpg";
-import kiwi from "/public/fruits/kiwi.jpg";
-import pineapple from "/public/fruits/pineapple.jpg";
-import oranges from "/public/fruits/oranges.jpg";
-
 const images = {
   vegetables: [
-    { src: brinjal, alt: "brinjal", name: "Eggplant/Brinjal/ बैगन" },
-    { src: ladyfinger, alt: "ladyfinger", name: "Okra/ भिंडी" },
-    { src: tomato, alt: "tomatoes", name: "Tomato/ टमाटर" },
-    { src: cauliFlower, alt: "Gobhi", name: "Cauliflower/फूलगोभी" },
-    { src: potato, alt: "Aalo", name: "Potato/ आलू" },
-    { src: onion, alt: "onion", name: "Onion/ प्याज" },
+    {
+      src: "/images/vegetables/brinjal.jpg",
+      alt: "brinjal",
+      name: "Eggplant/Brinjal/ बैगन",
+    },
+    {
+      src: "/images/vegetables/lady_finger.jpg",
+      alt: "ladyfinger",
+      name: "Okra/ भिंडी",
+    },
+    {
+      src: "/images/vegetables/tomatoes.jpg",
+      alt: "tomatoes",
+      name: "Tomato/ टमाटर",
+    },
+    {
+      src: "/images/vegetables/cauliflower.jpg",
+      alt: "Gobhi",
+      name: "Cauliflower/फूलगोभी",
+    },
+    { src: "/images/vegetables/potato.jpg", alt: "Aalo", name: "Potato/ आलू" },
+    { src: "/images/vegetables/Onion.jpg", alt: "onion", name: "Onion/ प्याज" },
   ],
   fruits: [
-    { src: papaya, alt: "papaya", name: "Papaya/Papita", price: 20 },
-    { src: apple, alt: "apple", name: "Apple/Seb", price: 200 },
-    { src: banana, alt: "banana", name: "Banana", price: 15 },
-    { src: kiwi, alt: "kiwi", name: "Kiwi", price: 100 },
-    { src: pineapple, alt: "pineapple", name: "Pineapple", price: 300 },
-    { src: oranges, alt: "oranges", name: "Oranges", price: 90 },
+    {
+      src: "/images/fruits/papaya.jpg",
+      alt: "papaya",
+      name: "Papaya/Papita",
+      price: 20,
+    },
+    {
+      src: "/images/fruits/apple.jpg",
+      alt: "apple",
+      name: "Apple/Seb",
+      price: 200,
+    },
+    {
+      src: "/images/fruits/banana.jpg",
+      alt: "banana",
+      name: "Banana",
+      price: 15,
+    },
+    { src: "/images/fruits/kiwi.jpg", alt: "kiwi", name: "Kiwi", price: 100 },
+    {
+      src: "/images/fruits/pineapple.jpg",
+      alt: "pineapple",
+      name: "Pineapple",
+      price: 300,
+    },
+    {
+      src: "/images/fruits/oranges.jpg",
+      alt: "oranges",
+      name: "Oranges",
+      price: 90,
+    },
   ],
 };
 
@@ -50,7 +74,10 @@ function ProductCard({ product }) {
     <div className="bg-white h-[12vw] w-[30%] md:w-[15%] mt-1">
       <Image
         src={product.src}
+        layout="resposnive"
         alt={product.alt}
+        width={100}
+        height={100}
         className="h-full w-full object-contain hover:scale-105 transition-all duration-200"
       />
       <div className="product-info mt-2">
