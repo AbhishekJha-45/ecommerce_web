@@ -6,7 +6,7 @@ import Carousel from "../components/Home/Carousel";
 function page() {
   return (
     <main className="w-full">
-      <Navbar />
+      {/* <Navbar /> */}
       <Home />
       <Footer />
     </main>
