@@ -208,11 +208,77 @@ const images = {
       price: 70,
     },
   ],
+  dairy: [
+    {
+      src: "/images/dairy/paneer.png",
+      alt: "Paneer",
+      name: "Paneer",
+      price: 100,
+    },
+    {
+      src: "/images/dairy/milk.jpg",
+      alt: "Amul Milk",
+      name: "Amul Milk",
+      price: 30,
+    },
+    {
+      src: "/images/dairy/amul-butter.jpg",
+      alt: "Butter",
+      name: "Butter",
+      price: 50,
+    },
+  ],
+  "dry-fruits": [
+    {
+      src: "/images/dry-fruits/almonds.png",
+      alt: "Almonds",
+      name: "Almonds",
+      price: 100,
+    },
+    {
+      src: "/images/dry-fruits/cashew.png",
+      alt: "Cashews",
+      name: "Cashews",
+      price: 600,
+    },
+    {
+      src: "/images/dry-fruits/raisins.jpg",
+      alt: "Raisins",
+      name: "Raisins",
+      price: 500,
+    },
+    {
+      src: "/images/dry-fruits/walnuts.png",
+      alt: "Walnuts",
+      name: "Walnuts",
+      price: 450,
+    },
+  ],
+  namkeen: [
+    {
+      src: "/images/namkeens/haldiram-all-in-one.png",
+      alt: "Haldiram All-in-One",
+      name: "Haldiram All-in-One",
+      price: 50,
+    },
+    {
+      src: "/images/namkeens/kuch-kuch-400-gm-pouch.png",
+      alt: "Kuch Kuch",
+      name: "Kuch Kuch",
+      price: 40,
+    },
+    {
+      src: "/images/namkeens/bikaji-bhujiya-1kg.jpg",
+      alt: "Bikaji Bhujiya",
+      name: "Allo Bhujiya",
+      price: 60,
+    },
+  ],
 };
 
 function ProductCard({ product }) {
   return (
-    <div className="bg-white h-[12vw] w-[30%] md:w-[15%] mt-1  ">
+    <div className="image-container bg-white h-[12vw] w-[30%] md:w-[15%] mt-1  ">
       <Image
         src={product.src}
         layout="resposnive"
@@ -270,7 +336,7 @@ function Home() {
         )}
       </div>
 
-      <div className="flex flex-wrap items-center justify-evenly md:h-[30vw] mt-5">
+      <div className="threeBox flex flex-wrap items-center justify-evenly md:h-[30vw] mt-5">
         {/* 1st box */}
         <div className="bg-slate-200 w-full md:w-[30%] md:h-full flex flex-col p-2 gap-2">
           <div className="flex font-bold text-black md:text-lg lg:text-xl justify-between underline px-1">
@@ -380,7 +446,7 @@ function Home() {
           <div className="flex font-bold text-black md:text-lg lg:text-xl justify-between underline px-1">
             DAIRY PRODUCTS
             <a
-              href="#"
+              href="dairy"
               className="bg-transparent border-none p-0 text-black hover:text-green-500 transition duration-300 ease-in-out"
             >
               <FaChevronCircleRight className="text-lg md:text-xl lg:text-2xl" />
@@ -394,7 +460,7 @@ function Home() {
                 alt="Paneer"
                 width={280}
                 height={240}
-                className="h-full w-full object-contain hover:scale-x-105 transition-all duration-200"
+                className="h-full w-full object-contain hover:scale-105 transition-all duration-200"
               />
             </div>
             <div className="flex flex-col w-[50%] gap-2">
@@ -423,7 +489,18 @@ function Home() {
         </div>
       </div>
 
-      <div className="h-32"></div>
+      <div className="w-full h-44 mt-20 flex gap-3 px-9">
+        <div className="bg-green-400 w-[15%] ">1</div>
+        <div className="bg-teal-500 w-[15%] ">2</div>
+        <div className="bg-cyan-500 w-[15%]">3</div>
+        <div className="bg-red-400 w-[15%]">4</div>
+        <div className="bg-purple-400 w-[15%]">5</div>
+        <div className="bg-pink-200 w-[15%]">6</div>
+        <div className="bg-slate-400 w-[15%]">7 </div>
+        <div className="bg-orange-400 w-[15%]">8 </div>
+      </div>
+
+      <div className="h-[20vw]"></div>
     </>
   );
 }
