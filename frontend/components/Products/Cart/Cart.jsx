@@ -4,38 +4,39 @@ import Item from "../../../components/Products/Cart/Item";
 import { FaTags } from "react-icons/fa6";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import getToken from "../../../utils/getToken";
+import { useSelector } from "react-redux";
 import axios from "axios";
+import BASE_URL from "constants/constants";
+import getToken from "utils/getToken";
 function Cart() {
-  const access_token = getToken("access_token");
   // const cart = useSelector((state) => state.cart.cart);
+
+  // console.log(cart);
   const [charges, setCharges] = useState({
     shipping: 79,
     platform: 5,
     discount: 0,
     donation: 0,
     totalMrp: 0,
+    totalAmount: 0,
   });
-  const fetchCart = async (access_token) => {
-    if (!access_token) {
-      alert("Please login to access cart");
-      window.location.href = "/auth/login";
-      return;
-    }
-    const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/cart/get-cart`,
-      { headers: { Authorization: `Bearer ${access_token}` } }
-    );
-    console.log(res.data.data.cart);
+  const [cart, setCart] = useState([]);
+  const fetchCart = async () => {
+    const res = await axios.get(`${BASE_URL}/cart/get-cart`, {
+      headers: {
+        Authorization: `Bearer ${getToken("access_token")}`,
+      },
+    });
     if (res.status === 200) {
-      console.log("to be pushed")
+      console.log(res.data.data.cart.products[0].product);
+      setCart(res.data.data.cart.products);
+      setCharges({ ...charges, totalAmount: res.data?.data?.cart.totalAmount });
     }
-    return res.data.data;
   };
-  useEffect(() => {
-    fetchCart(access_token);
-  }, []);
 
+  useEffect(() => {
+    fetchCart();
+  }, []);
 
   const handleDonation = (amount) => {
     setCharges({ ...charges, donation: amount });
@@ -69,7 +70,7 @@ function Cart() {
           <div className="flex gap-x-5">
             <input type="checkbox" name="itemsselected" id="itemsselected" />
             <label htmlFor="itemsselected">
-              {/* {cart.length} / {cart.length} Items Selected */}
+              {cart.length} / {cart.length} Items Selected
             </label>
           </div>
           <div className="flex gap-x-5">
@@ -78,7 +79,7 @@ function Cart() {
           </div>
         </div>
         <div className="w-full flex flex-col gap-y-2 pb-3">
-          {/* <Item cart={cart} calculateTotal={calculateTotalMrp} /> */}
+          <Item cart={cart} />
         </div>
         {/* <div className="">4</div> */}
       </section>
@@ -160,7 +161,7 @@ function Cart() {
             </div>
             <div className="border-t-[1px] mt-5 border-[#e0e0e0] py-4 flex flex-col gap-y-3">
               <h3 className="flex justify-between">
-                {/* Total Amount <span>₹ {total.toFixed(2)}</span> */}
+                Total Amount <span>₹ {charges.totalAmount}</span>
               </h3>
               <button
                 type="button"

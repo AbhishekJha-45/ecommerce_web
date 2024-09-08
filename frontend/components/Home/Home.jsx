@@ -74,10 +74,9 @@ function ProductCard({ product }) {
     <div className="bg-white h-[12vw] w-[30%] md:w-[15%] mt-1">
       <Image
         src={product.src}
-        layout="resposnive"
         alt={product.alt}
-        width={100}
-        height={100}
+        width={280}
+        height={240}
         className="h-full w-full object-contain hover:scale-105 transition-all duration-200"
       />
       <div className="product-info mt-2">

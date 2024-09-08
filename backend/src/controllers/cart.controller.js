@@ -62,7 +62,7 @@ export const addToCart = asyncHandler(async (req, res) => {
   }
 
   const product = await Product.findById(product_id);
-  console.log("product", product);
+  //console.log("product", product);
   if (!product) {
     return res.status(404).json(new ApiResponse(404, "Product not found"));
   }
