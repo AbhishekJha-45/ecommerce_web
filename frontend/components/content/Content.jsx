@@ -69,7 +69,7 @@ function Content({ className }) {
       `${BASE_URL}/cart/add-to-cart`,
       {
         product_id: product._id,
-        quantity: qty.quantity,
+        quantity: qty?.quantity || 1,
       },
       {
         headers: {
