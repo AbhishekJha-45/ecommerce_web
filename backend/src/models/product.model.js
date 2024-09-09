@@ -14,10 +14,15 @@ const productSchema = new Schema(
     price: {
       type: Number,
       required: true,
+      validate: {
+        validator: (value) => value > 0,
+        message: "Price must be a positive number",
+      },
     },
     category: {
       type: Schema.Types.ObjectId,
       ref: "Category",
+      index: true,
     },
     subCategory: {
       type: String,

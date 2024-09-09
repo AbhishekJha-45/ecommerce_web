@@ -7,6 +7,7 @@ import {
   deleteProduct,
   getProductById,
   updateProduct,
+  getProductByCategory,
 } from "../controllers/product.controller.js";
 
 const router = Router();
@@ -26,5 +27,7 @@ router.route("/get-product/:product_id").get(getProductById);
 router.route("/update-product").patch(verifyJwt, updateProduct);
 
 router.route("/delete-product").delete(verifyJwt, deleteProduct);
+
+router.route("/product-by-category").post(getProductByCategory);
 
 export default router;
