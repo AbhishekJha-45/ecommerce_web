@@ -1,56 +1,87 @@
+"use client";
 import Image from "next/image";
 import card from "../../../style/card.module.css";
+import { GoPlus } from "react-icons/go";
+import { FiMinus } from "react-icons/fi";
+import { BsCart4 } from "react-icons/bs";
+import { useState } from "react";
+function ProductCard({ product }) {
+  if (!product) {
+    return null;
+  }
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const handleAddToCart = () => {
+    if (selectedProduct) {
+      setSelectedProduct({
+        ...selectedProduct,
+        quantity: selectedProduct.quantity + 1,
+      });
+    } else {
+      setSelectedProduct({ id: product.id, quantity: 1 });
+    }
+  };
 
-function ProductCard() {
+  const handleIncrement = () => {
+    setSelectedProduct({
+      ...selectedProduct,
+      quantity: selectedProduct.quantity + 1,
+    });
+  };
+
+  const handleDecrement = () => {
+    if (selectedProduct.quantity > 1) {
+      setSelectedProduct({
+        ...selectedProduct,
+        quantity: selectedProduct.quantity - 1,
+      });
+    } else {
+      setSelectedProduct(null);
+    }
+  };
   return (
-    <div className={card.card}>
-      <div className={card.image_container}>
-        <Image src={"/images/grocery/sugar.jpg"} width={200} height={200} alt="phomtu" />
+    <div className={` w-full bg-slate-100 shadow-md p-3`}>
+      <div className="max-h-[6rem] mb-1 overflow-hidden object-contain">
+        <Image
+          src={product.image}
+          width={300}
+          height={300}
+          alt="phomtu"
+          className="object-contain w-full hover:scale-105 transition-all duration-500"
+        />
       </div>
-      <div className={card.title}>
-        <span>New brand name</span>
-      </div>
-      <div className={card.size}>
-        <span>Size</span>
-        <ul className={card.list_size}>
-          <li className={card.item_list}>
-            <button className="item-list-button">37</button>
-          </li>
-          <li className={card.item_list}>
-            <button className="item-list-button">38</button>
-          </li>
-          <li className={card.item_list}>
-            <button className="item-list-button">39</button>
-          </li>
-          <li className={card.item_list}>
-            <button className="item-list-button">40</button>
-          </li>
-          <li className={card.item_list}>
-            <button className="item-list-button">41</button>
-          </li>
-        </ul>
-      </div>
-      <div className={card.action}>
-        <div className={card.price}>
-          <span>$299</span>
+       <span>{product.name}</span>
+      
+      <div className={`flex justify-between items-center`}>
+        <div className={`text-xl font-semibold`}>
+          <span>
+            <span className="text-lg">&#8377;</span>
+            {" " + product.price}
+          </span>
         </div>
-        <button className={card.cart_button}>
-          <svg
-            className={card.cart_icon}
-            stroke="currentColor"
-            stroke-width="1.5"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+        {selectedProduct !== null ? (
+          <div className="flex justify-center items-center text-lg gap-x-2">
+            <button
+              className="outline outline-1 outline-black p-1 active:scale-95"
+              onClick={() => handleDecrement(product.id)}
+              >
+              <FiMinus />
+            </button>
+            <span>{selectedProduct && selectedProduct.quantity}</span>
+            <button
+              className="outline outline-1 outline-black p-1 active:scale-95"
+              onClick={() => handleIncrement(product.id)}
+            >
+              <GoPlus />
+            </button>
+          </div>
+        ) : (
+          <button
+            className="rounded-md text-sm p-1 active:scale-95 shadow-lg flex justify-center items-center gap-x-2"
+            onClick={() => handleAddToCart(product.id)}
           >
-            <path
-              d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-              stroke-linejoin="round"
-              stroke-linecap="round"
-            ></path>
-          </svg>
-          <span>Add to cart</span>
-        </button>
+            Add <BsCart4 />
+          </button>
+        )}
       </div>
     </div>
   );

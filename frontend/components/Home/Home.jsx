@@ -3,312 +3,44 @@ import { FaChevronCircleRight } from "react-icons/fa";
 import Image from "next/image";
 import React, { Suspense } from "react";
 
-import ProductCard from "@components/Products/Card/ProductCard";
+import ProductCard from "../../components/Common/Cards/ProductCard";
 import axios from "axios";
 import BASE_URL from "constants/constants";
-
-const images = {
-  vegetables: [
-    {
-      src: "/images/vegetables/brinjal.jpg",
-      alt: "brinjal",
-      name: "Eggplant/Brinjal/ बैगन",
-    },
-    {
-      src: "/images/vegetables/lady_finger.jpg",
-      alt: "ladyfinger",
-      name: "Okra/ भिंडी",
-    },
-    {
-      src: "/images/vegetables/tomatoes.jpg",
-      alt: "tomatoes",
-      name: "Tomato/ टमाटर",
-    },
-    {
-      src: "/images/vegetables/cauliflower.jpg",
-      alt: "Gobhi",
-      name: "Cauliflower/फूलगोभी",
-    },
-    {
-      src: "/images/vegetables/potato.jpg",
-      alt: "Aalo",
-      name: "Potato/ आलू",
-    },
-    {
-      src: "/images/vegetables/Onion.jpg",
-      alt: "onion",
-      name: "Onion/ प्याज",
-    },
-  ],
-  fruits: [
-    {
-      src: "/images/fruits/papaya.jpg",
-      alt: "papaya",
-      name: "Papaya/Papita",
-      price: 20,
-    },
-    {
-      src: "/images/fruits/apple.jpg",
-      alt: "apple",
-      name: "Apple/Seb",
-      price: 200,
-    },
-    {
-      src: "/images/fruits/banana.jpg",
-      alt: "banana",
-      name: "Banana",
-      price: 15,
-    },
-    {
-      src: "/images/fruits/kiwi.jpg",
-      alt: "kiwi",
-      name: "Kiwi",
-      price: 100,
-    },
-    {
-      src: "/images/fruits/pineapple.jpg",
-      alt: "pineapple",
-      name: "Pineapple",
-      price: 300,
-    },
-    {
-      src: "/images/fruits/oranges.jpg",
-      alt: "oranges",
-      name: "Oranges",
-      price: 90,
-    },
-  ],
-  grocery: [
-    {
-      src: "/images/grocery/aasirvad-aata.avif",
-      alt: "atta",
-      name: "Aashirvaad Atta",
-      price: 50,
-    },
-    {
-      src: "/images/grocery/toor-dal.jpg",
-      alt: "dal",
-      name: "Toor Dal",
-      price: 100,
-    },
-    {
-      src: "/images/grocery/basmati-rice.jpg",
-      alt: "rice",
-      name: "Basmati Rice",
-      price: 200,
-    },
-    {
-      src: "/images/grocery/sugar.jpg",
-      alt: "sugar",
-      name: "Sugar",
-      price: 40,
-    },
-    {
-      src: "/images/grocery/tata-salt.jpg",
-      alt: "salt",
-      name: "Salt",
-      price: 10,
-    },
-    {
-      src: "/images/grocery/tata-tea-premium.jpg",
-      alt: "tea",
-      name: "Tea",
-      price: 20,
-    },
-  ],
-  "bathroom-needs": [
-    {
-      src: "/images/bathroom-needs/dettol-handwash.jpg",
-      alt: "handwash",
-      name: "Dettol Handwash",
-      price: 50,
-    },
-    {
-      src: "/images/bathroom-needs/dettol-soap.jpg",
-      alt: "soap",
-      name: "Dettol Soap",
-      price: 30,
-    },
-    {
-      src: "/images/bathroom-needs/harpic-toilet-cleaner.webp",
-      alt: "toilet-cleaner",
-      name: "Harpic Toilet Cleaner",
-      price: 80,
-    },
-    {
-      src: "/images/bathroom-needs/surf-excel-detergent.jpg",
-      alt: "detergent",
-      name: "Surf Excel Detergent",
-      price: 60,
-    },
-    {
-      src: "/images/bathroom-needs/vim-dishwash.jpg",
-      alt: "dishwash",
-      name: "Vim Dishwash",
-      price: 30,
-    },
-    {
-      src: "/images/bathroom-needs/colgate-toothpaste.jpg",
-      alt: "toothpaste",
-      name: "Colgate Toothpaste",
-      price: 40,
-    },
-  ],
-  "dry-fruits": [
-    {
-      src: "/images/dry-fruits/almonds.png",
-      alt: "almonds",
-      name: "Almonds",
-      price: 100,
-    },
-    {
-      src: "/images/dry-fruits/cashew.png",
-      alt: "cashews",
-      name: "Cashews",
-      price: 600,
-    },
-    {
-      src: "/images/dry-fruits/raisins.jpg",
-      alt: "raisins",
-      name: "Raisins",
-      price: 500,
-    },
-    {
-      src: "/images/dry-fruits/walnuts.png",
-      alt: "walnuts",
-      name: "Walnuts",
-      price: 450,
-    },
-  ],
-  dairy: [
-    {
-      src: "/images/dairy/paneer.png",
-      alt: "Paneer",
-      name: "Paneer",
-      price: 100,
-    },
-    {
-      src: "/images/dairy/milk.jpg",
-      alt: "Amul Milk",
-      name: "Amul Milk",
-      price: 30,
-    },
-    {
-      src: "/images/dairy/amul-butter.jpg",
-      alt: "Butter",
-      name: "Butter",
-      price: 50,
-    },
-  ],
-  "dry-fruits": [
-    {
-      src: "/images/dry-fruits/almonds.png",
-      alt: "Almonds",
-      name: "Almonds",
-      price: 100,
-    },
-    {
-      src: "/images/dry-fruits/cashew.png",
-      alt: "Cashews",
-      name: "Cashews",
-      price: 600,
-    },
-    {
-      src: "/images/dry-fruits/raisins.jpg",
-      alt: "Raisins",
-      name: "Raisins",
-      price: 500,
-    },
-    {
-      src: "/images/dry-fruits/walnuts.png",
-      alt: "Walnuts",
-      name: "Walnuts",
-      price: 450,
-    },
-  ],
-  namkeen: [
-    {
-      src: "/images/namkeens/haldiram-all-in-one.png",
-      alt: "Haldiram All-in-One",
-      name: "Haldiram All-in-One",
-      price: 50,
-    },
-    {
-      src: "/images/namkeens/kuch-kuch-400-gm-pouch.png",
-      alt: "Kuch Kuch",
-      name: "Kuch Kuch",
-      price: 40,
-    },
-    {
-      src: "/images/namkeens/bikaji-bhujiya-1kg.jpg",
-      alt: "Bikaji Bhujiya",
-      name: "Allo Bhujiya",
-      price: 60,
-    },
-  ],
-};
 
 async function Home() {
   const products = await axios.post(`${BASE_URL}/product/product-by-category`, {
     category_id: "66dd5c67c81cc1ddb7db33af",
   });
-function ProductCard({ product }) {
-  return (
-    <div className="image-container bg-white h-[12vw] w-[30%] md:w-[15%] mt-1  ">
-      <Image
-        src={product.src}
-        alt={product.alt}
-        width={280}
-        height={240}
-        className="h-full w-full object-contain hover:scale-105 transition-all duration-200"
-        className="h-full w-full object-contain hover:scale-105 transition-all duration-200 "
-      />
-
-      <div className="product-info mt-2">
-        <h2 className="product-name font-bold mt-0">
-          <a href="/products/Brinjal">{product.name}</a>
-        </h2>
-        <div className="product-details">
-          <p className={lato.className}>
-            Per 250gm
-            <br />₹ {product.price || 10}
-          </p>
-        </div>
-        <button className="text-green-600 border border-green-600 hover:bg-green-200 w-[35%] font-bold flex justify-around items-center rounded">
-          Add <IoAdd />
-        </button>
-      </div>
-    </div>
-  );
-}
 
   return (
     <Suspense fallback={<>Loading...</>}>
       <div className="px-4 md:px-[2rem] bg-white-200">
-        <div className="bg-slate-50 h-auto md:h-[24vw] mt-5 p-3">
-          <div className="pb-1 md:pb- lg:pb-4 px-6">
-            <h2 className="flex font-bold text-black md:text-lg lg:text-xl justify-between underline">
-              {/* {category.toUpperCase()} */}
-              <a href={`#`}>
-                <button className="bg-transparent border-none p-0 text-black hover:text-green-500 transition duration-300 ease-in-out">
-                  <FaChevronCircleRight className="text-lg md:text-xl lg:text-2xl" />
-                </button>
-              </a>
+        <div className="bg-slate-50 my-5 p-5">
+          <div className="flex justify-between items-center px-3">
+            <h2 className="flex font-bold text-black md:text-lg lg:text-xl  justify-between hover:underline underline-offset-8">
+              Vegetables & Fruits
             </h2>
+            <a href={`#`}>
+              <button className="bg-transparent border-none p-0 text-black hover:text-green-500 transition duration-300 ease-in-out">
+                <FaChevronCircleRight className="text-lg md:text-xl lg:text-2xl" />
+              </button>
+            </a>
           </div>
-          <div className="grid grid-cols-7">
-            {products.data?.message?.map((product, i) => {
-              return (
-                <ProductCard
-                  key={i}
-                  product={{
-                    name: product.name,
-                    price: product.price,
-                    image: product.image,
-                  }}
-                />
-              );
-            })}
+          <div className="grid -z-10 lg:grid-cols-7 xl:grid-cols-7 md:gap-y-3 flex-wrap md:grid-cols-3 grid-cols-1 gap-y-3 justify-center gap-x-3 mt-3">
+            {products.data?.message?.length > 0 &&
+              products.data?.message?.map((product, i) => {
+                return (
+                  <ProductCard
+                    key={i}
+                    product={{
+                      id: product._id,
+                      name: product.name,
+                      price: product.price,
+                      image: product.image,
+                    }}
+                  />
+                );
+              })}
           </div>
         </div>
       </div>

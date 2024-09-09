@@ -15,8 +15,4 @@ export const menuItems = [
     link: "/about-us",
     title: "About Us",
   },
-  {
-    link: "/catrgory",
-    title: "Categories",
-  },
 ];

@@ -11,7 +11,7 @@ const DropdownUser = ({ user }) => {
     dispatch(logout());
   };
   return (
-    <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
+    <ClickOutside onClick={() => setDropdownOpen(false)} className="relative z-50">
       <Link
         onClick={() => setDropdownOpen(!dropdownOpen)}
         className="flex items-center justify-center gap-4"
