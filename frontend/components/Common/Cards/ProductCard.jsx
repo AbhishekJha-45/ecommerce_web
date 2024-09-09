@@ -39,8 +39,11 @@ function ProductCard({ product }) {
     }
   };
   return (
+
     <div className={` w-full bg-slate-100 shadow-md p-3`}>
       <div className="max-h-[6rem] mb-1 overflow-hidden object-contain">
+    <div className={`${card.card} col-span-1 w-full`}>
+      <div className={card.image_container}>
         <Image
           src={product.image}
           width={300}
@@ -53,6 +56,14 @@ function ProductCard({ product }) {
       
       <div className={`flex justify-between items-center`}>
         <div className={`text-xl font-semibold`}>
+          className="object-fill w-full hover:scale-105 transition-all duration-500"
+        />
+      </div>
+      <div className={card.title}>
+        <span>{product.name}</span>
+      </div>
+      <div className={`flex justify-between items-center`}>
+        <div className={card.price}>
           <span>
             <span className="text-lg">&#8377;</span>
             {" " + product.price}
