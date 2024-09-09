@@ -4,6 +4,7 @@ import { Category } from "../models/category.model.js";
 import { APiResponse as ApiResponse } from "../utils/ApiResponse.js";
 import MissingFields from "../utils/MissingFields.js";
 import { uploadToCloudinary } from "../utils/cloudinary.js";
+import mongoose from "mongoose";
 
 export const createProduct = asyncHandler(async (req, res) => {
   let {
@@ -121,4 +122,31 @@ export const deleteProduct = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(new ApiResponse(200, "Product deleted successfully"));
+});
+export const getProductByCategory = asyncHandler(async (req, res) => {
+  const { category_id } = req.body;
+  // console.log(category_id);
+  if (!category_id) {
+    return res
+      .status(400)
+      .json(new ApiResponse(400, "Category ID is required"));
+  }
+  if (!mongoose.Types.ObjectId.isValid(category_id)) {
+    return res.status(400).json(new ApiResponse(400, "Invalid category ID"));
+  }
+  const products = await Product.find({ category: category_id })
+    .sort({ createdAt: -1 }) 
+    .limit(7);
+
+  if (!Array.isArray(products)) {
+    return res.status(500).json(new ApiResponse(500, "Internal Server Error"));
+  }
+
+  if (products.length === 0) {
+    return res
+      .status(404)
+      .json(new ApiResponse(404, "No products found for the given category"));
+  }
+
+  return res.status(200).json(new ApiResponse(200, products));
 });

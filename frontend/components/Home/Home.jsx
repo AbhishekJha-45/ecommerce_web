@@ -1,13 +1,11 @@
 import { FaChevronCircleRight } from "react-icons/fa";
-import { IoAdd } from "react-icons/io5";
-import { Lato } from "next/font/google";
-import Image from "next/image";
 
-const lato = Lato({
-  subsets: ["latin"],
-  display: "swap",
-  weight: "400",
-});
+import Image from "next/image";
+import React, { Suspense } from "react";
+
+import ProductCard from "@components/Products/Card/ProductCard";
+import axios from "axios";
+import BASE_URL from "constants/constants";
 
 const images = {
   vegetables: [
@@ -182,32 +180,6 @@ const images = {
       price: 450,
     },
   ],
-  namkeen: [
-    {
-      src: "/images/namkeens/haldiram-all-in-one.png",
-      alt: "Haldiram All-in-One",
-      name: "Haldiram All-in-One",
-      price: 50,
-    },
-    {
-      src: "/images/namkeens/kuch-kuch-400-gm-pouch.png",
-      alt: "Kuch Kuch",
-      name: "Kuch Kuch",
-      price: 40,
-    },
-    {
-      src: "/images/namkeens/bikaji-bhujiya-1kg.jpg",
-      alt: "Bikaji Bhujiya",
-      name: "Allo Bhujiya",
-      price: 60,
-    },
-    {
-      src: "/images/namkeens/haldiram-namkeen.jpg",
-      alt: "Haldiram Namkeen",
-      name: "Haldiram Namkeen",
-      price: 70,
-    },
-  ],
   dairy: [
     {
       src: "/images/dairy/paneer.png",
@@ -276,6 +248,10 @@ const images = {
   ],
 };
 
+async function Home() {
+  const products = await axios.post(`${BASE_URL}/product/product-by-category`, {
+    category_id: "66dd5c67c81cc1ddb7db33af",
+  });
 function ProductCard({ product }) {
   return (
     <div className="image-container bg-white h-[12vw] w-[30%] md:w-[15%] mt-1  ">
@@ -306,34 +282,35 @@ function ProductCard({ product }) {
   );
 }
 
-function Home() {
   return (
-    <>
+    <Suspense fallback={<>Loading...</>}>
       <div className="px-4 md:px-[2rem] bg-white-200">
-        {["vegetables", "fruits", "grocery", "bathroom-needs"].map(
-          (category, index) => (
-            <div
-              key={index}
-              className="bg-slate-200 h-auto md:h-[24vw] mt-5 p-3"
-            >
-              <div className="pb-1 md:pb- lg:pb-4 px-6">
-                <h2 className="flex font-bold text-black md:text-lg lg:text-xl justify-between underline">
-                  {category.toUpperCase()}
-                  <a href={`/${category}`}>
-                    <button className="bg-transparent border-none p-0 text-black hover:text-green-500 transition duration-300 ease-in-out">
-                      <FaChevronCircleRight className="text-lg md:text-xl lg:text-2xl" />
-                    </button>
-                  </a>
-                </h2>
-              </div>
-              <div className="flex flex-wrap items-center justify-around px-5 gap-3">
-                {images[category].map((product, index) => (
-                  <ProductCard key={index} product={product} />
-                ))}
-              </div>
-            </div>
-          )
-        )}
+        <div className="bg-slate-50 h-auto md:h-[24vw] mt-5 p-3">
+          <div className="pb-1 md:pb- lg:pb-4 px-6">
+            <h2 className="flex font-bold text-black md:text-lg lg:text-xl justify-between underline">
+              {/* {category.toUpperCase()} */}
+              <a href={`#`}>
+                <button className="bg-transparent border-none p-0 text-black hover:text-green-500 transition duration-300 ease-in-out">
+                  <FaChevronCircleRight className="text-lg md:text-xl lg:text-2xl" />
+                </button>
+              </a>
+            </h2>
+          </div>
+          <div className="grid grid-cols-7">
+            {products.data?.message?.map((product, i) => {
+              return (
+                <ProductCard
+                  key={i}
+                  product={{
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                  }}
+                />
+              );
+            })}
+          </div>
+        </div>
       </div>
 
       <div className="threeBox flex flex-wrap items-center justify-evenly md:h-[30vw] mt-5">
@@ -501,7 +478,7 @@ function Home() {
       </div>
 
       <div className="h-[20vw]"></div>
-    </>
+    </Suspense>
   );
 }
 
