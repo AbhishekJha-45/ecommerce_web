@@ -252,6 +252,35 @@ async function Home() {
   const products = await axios.post(`${BASE_URL}/product/product-by-category`, {
     category_id: "66dd5c67c81cc1ddb7db33af",
   });
+function ProductCard({ product }) {
+  return (
+    <div className="image-container bg-white h-[12vw] w-[30%] md:w-[15%] mt-1  ">
+      <Image
+        src={product.src}
+        alt={product.alt}
+        width={280}
+        height={240}
+        className="h-full w-full object-contain hover:scale-105 transition-all duration-200"
+        className="h-full w-full object-contain hover:scale-105 transition-all duration-200 "
+      />
+
+      <div className="product-info mt-2">
+        <h2 className="product-name font-bold mt-0">
+          <a href="/products/Brinjal">{product.name}</a>
+        </h2>
+        <div className="product-details">
+          <p className={lato.className}>
+            Per 250gm
+            <br />₹ {product.price || 10}
+          </p>
+        </div>
+        <button className="text-green-600 border border-green-600 hover:bg-green-200 w-[35%] font-bold flex justify-around items-center rounded">
+          Add <IoAdd />
+        </button>
+      </div>
+    </div>
+  );
+}
 
   return (
     <Suspense fallback={<>Loading...</>}>
