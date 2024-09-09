@@ -74,7 +74,7 @@ function ProductCard({ product }) {
             <button
               className="outline outline-1 outline-black p-1 active:scale-95"
               onClick={() => handleDecrement(product.id)}
-              >
+            >
               <FiMinus />
             </button>
             <span>{selectedProduct && selectedProduct.quantity}</span>
