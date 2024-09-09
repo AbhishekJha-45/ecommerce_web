@@ -39,6 +39,9 @@ function ProductCard({ product }) {
     }
   };
   return (
+
+    <div className={` w-full bg-slate-100 shadow-md p-3`}>
+      <div className="max-h-[6rem] mb-1 overflow-hidden object-contain">
     <div className={`${card.card} col-span-1 w-full`}>
       <div className={card.image_container}>
         <Image
@@ -46,6 +49,13 @@ function ProductCard({ product }) {
           width={300}
           height={300}
           alt="phomtu"
+          className="object-contain w-full hover:scale-105 transition-all duration-500"
+        />
+      </div>
+       <span>{product.name}</span>
+      
+      <div className={`flex justify-between items-center`}>
+        <div className={`text-xl font-semibold`}>
           className="object-fill w-full hover:scale-105 transition-all duration-500"
         />
       </div>

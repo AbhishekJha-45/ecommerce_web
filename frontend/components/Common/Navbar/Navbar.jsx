@@ -8,8 +8,9 @@ import { FaCartShopping } from "react-icons/fa6";
 import { CgProfile } from "react-icons/cg";
 import { menuItems } from "./data";
 import { useSelector } from "react-redux";
+import DropDown from "@components/DropDown/DropDown";
 import DropdownUser from "./DropdownUser";
-function Navbar() {
+function Navbar({categories}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -22,7 +23,7 @@ function Navbar() {
     <>
       <main className="header mx-auto max-w-7x" id="">
         <header className="flex w-full h-20 justify-between lg:px-14">
-          <ul className="flex gap-x-5  items-center">
+          <ul className="flex gap-x-5  items-center text-black">
             <li className="text-3xl pr-5">
               <Link href="/">ApnaBazar</Link>
             </li>
@@ -33,7 +34,11 @@ function Navbar() {
                 </li>
               );
             })}
+            <DropDown
+              list={categories}
+            />
           </ul>
+
           <div className="flex items-center">
             <input
               type="search"

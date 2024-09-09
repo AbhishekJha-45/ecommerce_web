@@ -3,7 +3,6 @@ import { Router } from "express";
 
 const router = Router();
 
-router.use(verifyJwt);
 
 import {
   createCategory,
@@ -13,12 +12,12 @@ import {
   updateCategory,
 } from "../controllers/category.controller.js";
 
-router.route("/create-category").post(createCategory);
+router.route("/create-category").post(verifyJwt,createCategory);
 
 router.route("/get-categories").get(getCategories);
 router.route("/get-category-by-id").get(getCategoryById);
-router.route("/update-category").patch(updateCategory);
+router.route("/update-category").patch(verifyJwt,updateCategory);
 
-router.route("/delete-category").delete(deleteCategory);
+router.route("/delete-category").delete(verifyJwt,deleteCategory);
 
 export default router;
