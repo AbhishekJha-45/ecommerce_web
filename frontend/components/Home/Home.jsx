@@ -27,7 +27,6 @@ async function Home() {
             </a>
           </div>
           <div className="grid -z-10 lg:grid-cols-7 xl:grid-cols-7 md:gap-y-3 flex-wrap md:grid-cols-3 grid-cols-1 gap-y-3 justify-center gap-x-3 mt-3">
-          <div className="grid lg:grid-cols-7 xl:grid-cols-7 md:gap-y-3 flex-wrap md:grid-cols-3 grid-cols-1 gap-y-3 justify-center gap-x-3 mt-3">
             {products.data?.message?.length > 0 &&
               products.data?.message?.map((product, i) => {
                 return (
@@ -210,7 +209,7 @@ async function Home() {
         <div className="bg-orange-400 w-[15%]">8 </div>
       </div>
 
-      <div className="h-[20vw]"></div>
+      {/* <div className="h-[20vw]"></div> */}
     </Suspense>
   );
 }
