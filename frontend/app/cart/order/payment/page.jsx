@@ -34,8 +34,8 @@ export const metadata = {
 
 };
 
-function page() {
+function PaymentPage() {
   return <Payment />;
 }
 
-export default page;
+export default PaymentPage;
