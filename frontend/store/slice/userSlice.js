@@ -34,7 +34,6 @@ const userSlice = createSlice({
       state.user = action.payload;
       state.isLoggedIn = true;
     },
-    logout: (state) => {},
   },
   extraReducers: (builder) => {
     builder
