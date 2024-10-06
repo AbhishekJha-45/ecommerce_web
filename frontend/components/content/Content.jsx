@@ -1,15 +1,41 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ShoppingCart } from "lucide-react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import BASE_URL from "constants/constants";
+import { useRouter } from "next/navigation";
 
-export default function page({ data }) {
-  console.log(data);
+export default function Content({ data }) {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [sortOption, setSortOption] = useState("featured");
   const [cart, setCart] = useState([]);
+  const router = useRouter();
+
+  const fetchCart = useCallback(async () => {
+    const accessToken = Cookies.get("access_token");
+    if (accessToken) {
+      try {
+        const response = await axios.get(`${BASE_URL}/cart`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        if (response.data.success && response.data.data.cart) {
+          setCart(response.data.data.cart.products);
+          console.log("Cart:", response.data.data.cart);
+        }
+      } catch (error) {
+        console.error("Error fetching cart:", error);
+      }
+    }
+  }, []);
+  useEffect(() => {
+    fetchCart();
+  }, []);
 
   const categories = [
     "All",
@@ -45,19 +71,38 @@ export default function page({ data }) {
     );
   };
 
-  const addToCart = (product) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item._id === product._id);
-      if (existingItem) {
-        return prevCart.map((item) =>
-          item._id === product._id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
+  const addToCart = useCallback(async (product) => {
+    const accessToken = Cookies.get("access_token");
+    if (!accessToken) {
+      console.error("No access token found");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/cart/`,
+        {
+          product_id: product._id,
+          quantity: 1,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("API Response:", response.data);
+
+      // Update the cart state with the new data from the API
+      if (response.data.success && response.data.data.cart) {
+        setCart(response.data.data.cart.products);
       }
-      return [...prevCart, { ...product, quantity: 1 }];
-    });
-  };
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
+  }, []);
 
   const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
 
@@ -162,7 +207,13 @@ export default function page({ data }) {
               <option value="priceHighToLow">Price: High to Low</option>
             </select>
             <div className="relative">
-              <ShoppingCart className="h-8 w-8 text-indigo-600" />
+              <button
+                onClick={() => {
+                  router.push("/cart");
+                }}
+              >
+                <ShoppingCart className="h-8 w-8 text-indigo-600" />
+              </button>
               {cartItemsCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                   {cartItemsCount}

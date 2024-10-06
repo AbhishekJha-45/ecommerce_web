@@ -1,37 +1,49 @@
-"use client";
-import axios from "axios";
-import Cart from "../../components/Products/Cart/Cart";
-import BASE_URL from "constants/constants";
-import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
-function Page() {
-  const [cartData, setCartData] = useState(null);
-  const router = useRouter();
-  const fetchCart = async (token) => {
-    if (!token) return;
-    const res = await axios.get(`${BASE_URL}/cart`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
+import Cart from "./Cart";
+
+export const metadata = {
+  title: "Apna Bazar | Cart",
+  description: "Get your daily essentials delivered to your doorstep in minutes!",
+  keywords: "grocery, delivery, essentials, online shopping",
+  author: "Apna Bazar Team",
+  viewport: "width=device-width, initial-scale=1",
+  robots: "index, follow",
+  charset: "UTF-8",
+  // Open Graph tags
+  openGraph: {
+    title: "Apna Bazar | Cart",
+    description: "Get your daily essentials delivered to your doorstep in minutes!",
+    url: "https://apnabazar.com/cart",
+    siteName: "Apna Bazar",
+    images: [
+      {
+        url: "https://apnabazar.com/images/cart.png",
+        width: 800,
+        height: 600,
+        alt: "Apna Bazar Cart",
       },
-    });
+    ],
+    locale: "en_US",
+  },
+  // Twitter Card tags
+  twitter: {
+    card: "summary_large_image",
+    site: "@apnabazar",
+    title: "Apna Bazar | Cart",
+    description: "Get your daily essentials delivered to your doorstep in minutes!",
+    image: "https://apnabazar.com/images/cart.png",
+  },
+  // Additional meta tags
+  themeColor: "#ffffff",
+  // Favicon
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+};
 
-    if (res.status === 401) {
-      console.error("Error fetching cart data");
-      router.push("/auth/login");
-      return;
-    }
-    if (res.status === 200) {
-      setCartData(res.data?.data?.cart);
-    }
-  };
 
-  useEffect(() => {
-    const token = Cookies.get("access_token");
-    fetchCart(token);
-  }, []);
-
-  return cartData ? <Cart cartData={cartData} /> : <div>Loading...</div>;
+function page() {
+  return <Cart />;
 }
 
-export default Page;
+export default page;

@@ -8,10 +8,10 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import BASE_URL from "constants/constants";
 function ProductCard({ product }) {
+  const [selectedProduct, setSelectedProduct] = useState(null);
   if (!product) {
     return null;
   }
-  const [selectedProduct, setSelectedProduct] = useState(null);
   const handleAddToCart = async (id) => {
     const access_token = Cookies.get("access_token");
     if (!access_token) {
@@ -32,7 +32,7 @@ function ProductCard({ product }) {
       } else {
         setSelectedProduct({ id: product.id, quantity: 1 });
       }
-      return ;
+      return;
     }
     return alert("Oops Something Went Wrong");
   };
