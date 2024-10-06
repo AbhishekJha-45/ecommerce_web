@@ -1,180 +1,108 @@
-"use client";
+'use client'
 
-import Item from "../../../components/Products/Cart/Item";
-import { FaTags } from "react-icons/fa6";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import axios from "axios";
-import BASE_URL from "constants/constants";
-import getToken from "utils/getToken";
-function Cart() {
-  // const cart = useSelector((state) => state.cart.cart);
+import { useState } from 'react'
+import Link from 'next/link'
+import { ShoppingCart, Trash2, Plus, Minus } from 'lucide-react'
 
-  // console.log(cart);
-  const [charges, setCharges] = useState({
-    shipping: 79,
-    platform: 5,
-    discount: 0,
-    donation: 0,
-    totalMrp: 0,
-    totalAmount: 0,
-  });
-  const [cart, setCart] = useState([]);
-  const fetchCart = async () => {
-    const res = await axios.get(`${BASE_URL}/cart/get-cart`, {
-      headers: {
-        Authorization: `Bearer ${getToken("access_token")}`,
-      },
-    });
-    if (res.status === 200) {
-      console.log(res.data.data.cart.products[0].product);
-      setCart(res.data.data.cart.products);
-      setCharges({ ...charges, totalAmount: res.data?.data?.cart.totalAmount });
-    }
-  };
+export default function Cart() {
+  const [cartItems, setCartItems] = useState([
+    { id: 1, name: 'Product 1', price: 50, quantity: 2 },
+    { id: 2, name: 'Product 2', price: 30, quantity: 1 },
+  ])
 
-  useEffect(() => {
-    fetchCart();
-  }, []);
+  const updateQuantity = (id, change) => {
+    setCartItems(prevItems =>
+      prevItems.map(item =>
+        item.id === id ? { ...item, quantity: Math.max(0, item.quantity + change) } : item
+      )
+    )
+  }
 
-  const handleDonation = (amount) => {
-    setCharges({ ...charges, donation: amount });
-    calculateTotal();
-  };
+  const removeItem = (id) => {
+    setCartItems(prevItems => prevItems.filter(item => item.id !== id))
+  }
+
+  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
+
   return (
-    <main className="container mx-auto lg:gap-x-4 lg:px-20 xl:px-20 2xl:px-20 pt-5 lg:grid grid-cols-6  justify-between  w-full h-full ">
-      <section className="col-span-4 flex flex-col gap-y-3">
-        <div className="py-5 flex lg:flex-row flex-col gap-y-3 justify-between items-center outline outline-1 outline-[#e0e0e0] px-3">
-          <div className="flex flex-col flex-wrap">
-            <p className="flex flex-col lg:flex-row text-start">
-              Deliver to : <span> Abhishek kr Jha, 201204</span>
-            </p>
-            <p>Jain Villa, Akash vihar,Modinagar</p>
-          </div>
-          <button
-            type="button"
-            className="outline outline-1 outline-[#e0e0e0] rounded-sm px-3 py-2 text-xs"
-          >
-            Change Address
-          </button>
-        </div>
-        <div className="py-5 outline outline-1 outline-[#e0e0e0]  px-3">
-          <span>Available Offers</span>
-          <p className="text-sm">
-            10% discount upto $90 on Kotak Mahindra Bank Cards on min spend of
-            $100 TCA
-          </p>
-        </div>
-        <div className="flex flex-col lg:flex-row lg:justify-between justify-center items-center gap-y-3 outline outline-1 outline-[#e0e0e0] py-5 px-3">
-          <div className="flex gap-x-5">
-            <input type="checkbox" name="itemsselected" id="itemsselected" />
-            <label htmlFor="itemsselected">
-              {cart.length} / {cart.length} Items Selected
-            </label>
-          </div>
-          <div className="flex gap-x-5">
-            <span>Remove</span>
-            <span> Move to wishlist</span>
-          </div>
-        </div>
-        <div className="w-full flex flex-col gap-y-2 pb-3">
-          <Item cart={cart} />
-        </div>
-        {/* <div className="">4</div> */}
-      </section>
-      <section className="col-span-2">
-        <div className="outline outline-1 outline-[#e0e0e0] py-5 lg:px-5 px-3">
-          <span className="text-black font-semibold">COUPONS</span>
-          <div className="">
-            <span className="flex justify-between items-center pt-3">
-              <span className="flex gap-x-3 items-center pb-3">
-                <FaTags />
-                <p>Apply Coupon</p>
-              </span>
-              <button
-                type="button"
-                className="outline outline-1 outline-[#e0e0e0] rounded-sm px-3 py-1 text-xs "
-              >
-                Apply
-              </button>
-            </span>
-            <hr className="mt-2" />
-            <p className="text-xs pt-3 font-semibold">
-              SUPPORT TRANSFORMATIVE SOCIAL WORK IN INDIA
-            </p>
-            <div className="py-3 flex gap-x-5 items-center">
-              <input
-                type="checkbox"
-                name="donate"
-                id="donate"
-                className="w-4 h-4"
-              />
-              <label htmlFor="donate">Donate and Make a Difference</label>
+    <div className="min-h-screen bg-gray-100 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">Your Cart</h1>
+        <div className="bg-white shadow-md rounded-lg overflow-hidden">
+          <div className="p-6">
+            <div className="flow-root">
+              <ul role="list" className="-my-6 divide-y divide-gray-200">
+                {cartItems.map((product) => (
+                  <li key={product.id} className="py-6 flex">
+                    <div className="flex-shrink-0 w-24 h-24 bg-gray-200 rounded-md overflow-hidden">
+                      <div className="h-full w-full flex items-center justify-center text-gray-400">
+                        <ShoppingCart size={32} />
+                      </div>
+                    </div>
+                    <div className="ml-4 flex-1 flex flex-col">
+                      <div>
+                        <div className="flex justify-between text-base font-medium text-gray-900">
+                          <h3>{product.name}</h3>
+                          <p className="ml-4">${(product.price * product.quantity).toFixed(2)}</p>
+                        </div>
+                      </div>
+                      <div className="flex-1 flex items-end justify-between text-sm">
+                        <div className="flex items-center">
+                          <button
+                            onClick={() => updateQuantity(product.id, -1)}
+                            className="text-gray-500 hover:text-gray-700"
+                          >
+                            <Minus size={18} />
+                          </button>
+                          <p className="text-gray-500 mx-2">Qty {product.quantity}</p>
+                          <button
+                            onClick={() => updateQuantity(product.id, 1)}
+                            className="text-gray-500 hover:text-gray-700"
+                          >
+                            <Plus size={18} />
+                          </button>
+                        </div>
+                        <div className="flex">
+                          <button
+                            onClick={() => removeItem(product.id)}
+                            type="button"
+                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="flex justify-evenly items-center gap-x-3">
-              <button
-                onClick={() => handleDonation(10)}
-                className="py-2 px-3 rounded-full bg-[#e0e0e0]"
-              >
-                ₹ 10
-              </button>
-              <button
-                onClick={() => handleDonation(50)}
-                className="py-2 px-3 rounded-full bg-[#e0e0e0]"
-              >
-                ₹ 50
-              </button>
-              <button
-                onClick={() => handleDonation(100)}
-                className="py-2 px-3 rounded-full bg-[#e0e0e0]"
-              >
-                ₹ 100
-              </button>
+          </div>
+          <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+            <div className="flex justify-between text-base font-medium text-gray-900">
+              <p>Subtotal</p>
+              <p>${subtotal.toFixed(2)}</p>
             </div>
-            <button
-              type="button"
-              className="my-3 p-2 outline-1 outline outline-[#e0e0e0]"
-            >
-              Know More
-            </button>
-            <div>
-              {/* <p>Price Details {cart.length} Items</p> */}
-              <p className="flex justify-between">
-                Total Mrp: <span>₹ {charges.totalMrp}</span>
-              </p>
-              <p className="flex justify-between">
-                Coupon Discount{" "}
-                <Link
-                  href={"/"}
-                  className="outline outline-1 outline-[#e0e0e0] px-2 py-1"
-                >
-                  Apply Coupon
+            <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+            <div className="mt-6">
+              <Link
+                href="/checkout"
+                className="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+              >
+                Checkout
+              </Link>
+            </div>
+            <div className="mt-6 flex justify-center text-sm text-center text-gray-500">
+              <p>
+                or{' '}
+                <Link href="/" className="text-indigo-600 font-medium hover:text-indigo-500">
+                  Continue Shopping<span aria-hidden="true"> &rarr;</span>
                 </Link>
               </p>
-              <p className="flex justify-between">
-                Platform Fee <span>₹ {charges.platform}</span>
-              </p>
-              <p className="flex justify-between">
-                Shipping charges <span>₹ {charges.shipping}</span>
-              </p>
-            </div>
-            <div className="border-t-[1px] mt-5 border-[#e0e0e0] py-4 flex flex-col gap-y-3">
-              <h3 className="flex justify-between">
-                Total Amount <span>₹ {charges.totalAmount}</span>
-              </h3>
-              <button
-                type="button"
-                className="btn-primary p-2 w-full focus:outline-none active:scale-95 transition-transform duration-150"
-              >
-                Place Order
-              </button>
             </div>
           </div>
         </div>
-      </section>
-    </main>
-  );
+      </div>
+    </div>
+  )
 }
-
-export default Cart;

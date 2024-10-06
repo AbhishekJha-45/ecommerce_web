@@ -5,7 +5,6 @@ import { uploadToCloudinary } from "../utils/cloudinary.js";
 import { APiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-import connectDB from "../db/index.js";
 const options = {
   httpOnly: true,
   secure: true,
@@ -93,7 +92,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-const loginUser = asyncHandler(async (req, res) => {  
+const loginUser = asyncHandler(async (req, res) => {
   try {
     const { username, password, email } = req.body;
     if (!(username || email)) {
@@ -120,17 +119,15 @@ const loginUser = asyncHandler(async (req, res) => {
     const loggedInUser = await User.findById(isExistingUser._id).select(
       "-password -refreshToken"
     );
-   // const accessTokenExpiry = parseInt(process.env.ACCESS_TOKEN_EXPIRY);
+    // const accessTokenExpiry = parseInt(process.env.ACCESS_TOKEN_EXPIRY);
     //const refreshTokenExpiry = parseInt(process.env.REFRESH_TOKEN_EXPIRY);
-    return res
-      .status(200)
-      .json(
-        new APiResponse(200, "User logged in Successfully", {
-          user: loggedInUser,
-          accessToken,
-          refreshToken,
-        })
-      );
+    return res.status(200).json(
+      new APiResponse(200, "User logged in Successfully", {
+        user: loggedInUser,
+        accessToken,
+        refreshToken,
+      })
+    );
   } catch (error) {
     return res.status(500).json(new APiResponse(500, error?.message, null));
   }

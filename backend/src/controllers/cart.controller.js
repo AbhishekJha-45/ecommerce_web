@@ -90,9 +90,9 @@ export const addToCart = asyncHandler(async (req, res) => {
 
   const updatedCart = await cart.save();
   return res
-    .status(200)
+    .status(201)
     .json(
-      new ApiResponse(200, "Product added to cart successfully", updatedCart)
+      new ApiResponse(201, "Product added to cart successfully", updatedCart)
     );
 });
 
