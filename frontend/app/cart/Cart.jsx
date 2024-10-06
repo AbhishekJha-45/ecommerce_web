@@ -9,7 +9,7 @@ function Page() {
   const [cartData, setCartData] = useState(null);
   const router = useRouter();
   const fetchCart = async (token) => {
-    if (!token) return;
+    if (!token) alert("Please login");
     const res = await axios.get(`${BASE_URL}/cart`, {
       headers: {
         Authorization: `Bearer ${token}`,
