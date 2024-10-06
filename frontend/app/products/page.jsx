@@ -1,11 +1,16 @@
-import DefaultLayout from "../../components/Layout/DefaultLayout";
+import Navbar from "@components/Common/Navbar/Navbar";
 import Content from "../../components/content/Content";
+import axios from "axios";
+import BASE_URL from "constants/constants";
 
-function page() {
+async function page() {
+  const res = await axios.get(`${BASE_URL}/products`);
+  const productsData = res.data.data.products;
   return (
-    <DefaultLayout>
-      <Content />
-    </DefaultLayout>
+    <>
+      <Navbar />
+      <Content data={productsData} />;
+    </>
   );
 }
 export default page;

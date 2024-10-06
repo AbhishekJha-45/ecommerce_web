@@ -20,13 +20,13 @@ router
     createProduct
   );
 
-router.route("/get-products").get(getProducts);
+router.route("/").get(getProducts);
 
-router.route("/get-product/:product_id").get(getProductById);
+router.route("/:product_id").get(getProductById);
 
-router.route("/update-product").patch(verifyJwt, updateProduct);
+router.route("/").patch(verifyJwt, updateProduct);
 
-router.route("/delete-product").delete(verifyJwt, deleteProduct);
+router.route("/").delete(verifyJwt, deleteProduct);
 
 router.route("/product-by-category").post(getProductByCategory);
 
