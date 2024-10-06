@@ -9,7 +9,6 @@ import { logout, logoutAsync } from "store/slice/userSlice";
 import dispatch from "store/dispatch";
 function Navbar({ categories }) {
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
   const cart = useSelector((state) => state.cart.cart);
 
   return (
