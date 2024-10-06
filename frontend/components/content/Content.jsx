@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { ShoppingCart } from "lucide-react";
 
 export default function page({ data }) {
-  console.log(data);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 1000]);

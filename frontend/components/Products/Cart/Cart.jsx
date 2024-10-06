@@ -9,7 +9,6 @@ import axios from "axios";
 import BASE_URL from "constants/constants";
 
 export default function Cart({ cartData }) {
-  console.log("cart data", cartData.products);
   const [cartItems, setCartItems] = useState(cartData.products);
   const [subtotal, setSubtotal] = useState(0);
 

@@ -25,7 +25,6 @@ function Navbar({ categories }) {
     setIsOpen(!isOpen);
   };
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
   const cart = useSelector((state) => state.cart.cart);
   function SearchBar() {
     return (
@@ -43,17 +42,14 @@ function Navbar({ categories }) {
             ApnaBazar
           </Link>
           <nav className="hidden md:flex space-x-4 font-bold">
-            <Link href="#" className="hover:text-green-200 ">
+            <Link href="/" className="hover:text-green-200 ">
               Home
             </Link>
-            <Link href="#" className="hover:text-green-200">
-              Categories
+            <Link href="/products" className="hover:text-green-200">
+              Products
             </Link>
             <Link href="#" className="hover:text-green-200">
-              Offers
-            </Link>
-            <Link href="#" className="hover:text-green-200">
-              Contact
+              Support
             </Link>
 
             <div className="relative flex">
