@@ -49,14 +49,11 @@ export default function Cart({ cartData }) {
     }
 
     try {
-      await axios.delete(
-        `${BASE_URL}/cart/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.delete(`${BASE_URL}/cart/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setCartItems((prevItems) =>
         prevItems.filter((item) => item.product._id !== id)
@@ -85,66 +82,74 @@ export default function Cart({ cartData }) {
           <div className="p-6">
             <div className="flow-root">
               <ul role="list" className="-my-6 divide-y divide-gray-200">
-                {cartItems.map((item) => (
-                  <li key={item.product._id} className="py-6 flex">
-                    <div className="flex-shrink-0 w-24 h-24 bg-gray-200 rounded-md overflow-hidden">
-                      {item.product.image ? (
-                        <Image
-                          src={item.product.image}
-                          alt={item.product.name}
-                          width={96}
-                          height={96}
-                          className="w-full h-full object-center object-cover"
-                        />
-                      ) : (
-                        <div className="h-full w-full flex items-center justify-center text-gray-400">
-                          <ShoppingCart size={32} />
-                        </div>
-                      )}
-                    </div>
-                    <div className="ml-4 flex-1 flex flex-col">
-                      <div>
-                        <div className="flex justify-between text-base font-medium text-gray-900">
-                          <h3>{item.product.name}</h3>
-                          <p className="ml-4">
-                            ${(item.product.price * item.quantity).toFixed(2)}
+                {cartItems.length > 0 ? (
+                  cartItems.map((item) => (
+                    <li key={item.product._id} className="py-6 flex">
+                      <div className="flex-shrink-0 w-24 h-24 bg-gray-200 rounded-md overflow-hidden">
+                        {item.product.image ? (
+                          <Image
+                            src={item.product.image}
+                            alt={item.product.name}
+                            width={96}
+                            height={96}
+                            className="w-full h-full object-center object-cover"
+                          />
+                        ) : (
+                          <div className="h-full w-full flex items-center justify-center text-gray-400">
+                            <ShoppingCart size={32} />
+                          </div>
+                        )}
+                      </div>
+                      <div className="ml-4 flex-1 flex flex-col">
+                        <div>
+                          <div className="flex justify-between text-base font-medium text-gray-900">
+                            <h3>{item.product.name}</h3>
+                            <p className="ml-4">
+                              ${(item.product.price * item.quantity).toFixed(2)}
+                            </p>
+                          </div>
+                          <p className="mt-1 text-sm text-gray-500">
+                            {item.product.subCategory}
                           </p>
                         </div>
-                        <p className="mt-1 text-sm text-gray-500">
-                          {item.product.subCategory}
-                        </p>
-                      </div>
-                      <div className="flex-1 flex items-end justify-between text-sm">
-                        <div className="flex items-center">
-                          <button
-                            onClick={() => updateQuantity(item.product._id, -1)}
-                            className="text-gray-500 hover:text-gray-700"
-                          >
-                            <Minus size={18} />
-                          </button>
-                          <p className="text-gray-500 mx-2">
-                            Qty {item.quantity}
-                          </p>
-                          <button
-                            onClick={() => updateQuantity(item.product._id, 1)}
-                            className="text-gray-500 hover:text-gray-700"
-                          >
-                            <Plus size={18} />
-                          </button>
+                        <div className="flex-1 flex items-end justify-between text-sm">
+                          <div className="flex items-center">
+                            <button
+                              onClick={() =>
+                                updateQuantity(item.product._id, -1)
+                              }
+                              className="text-gray-500 hover:text-gray-700"
+                            >
+                              <Minus size={18} />
+                            </button>
+                            <p className="text-gray-500 mx-2">
+                              Qty {item.quantity}
+                            </p>
+                            <button
+                              onClick={() =>
+                                updateQuantity(item.product._id, 1)
+                              }
+                              className="text-gray-500 hover:text-gray-700"
+                            >
+                              <Plus size={18} />
+                            </button>
+                          </div>
+                          <div className="flex">
+                            <button
+                              onClick={() => removeItem(item.product._id)}
+                              type="button"
+                              className="font-medium text-indigo-600 hover:text-indigo-500"
+                            >
+                              <Trash2 size={18} />
+                            </button>
+                          </div>
                         </div>
-                        <div className="flex">
-                          <button
-                            onClick={() => removeItem(item.product._id)}
-                            type="button"
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
-                          >
-                            <Trash2 size={18} />
-                          </button>
-                        </div>
                       </div>
-                    </div>
-                  </li>
-                ))}
+                    </li>
+                  ))
+                ) : (
+                  <h2 className="my-5 text-center text-2xl">No items in cart</h2>
+                )}
               </ul>
             </div>
           </div>
