@@ -173,7 +173,7 @@ export default function Payment() {
         <div className="bg-white shadow-xl rounded-2xl overflow-hidden">
           <div className="p-6 sm:p-10">
             <div className="flex items-center mb-8">
-              <Link href="/cart" className="text-indigo-600 hover:text-indigo-700 transition-colors duration-200">
+              <Link href="/cart/order/checkout" className="text-indigo-600 hover:text-indigo-700 transition-colors duration-200">
                 <ChevronLeft className="h-6 w-6" />
               </Link>
               <h1 className="text-3xl font-bold text-gray-900 ml-4">Payment</h1>

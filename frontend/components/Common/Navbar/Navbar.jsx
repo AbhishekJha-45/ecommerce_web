@@ -9,16 +9,6 @@ import { CgProfile } from "react-icons/cg";
 import { menuItems } from "./data";
 import { useSelector } from "react-redux";
 import DropdownUser from "./DropdownUser";
-import { Search } from "lucide-react";
-import { Gabriela } from "next/font/google";
-import Image from "next/image";
-
-const aloha = Gabriela({
-  subsets: ["latin"],
-  display: "swap",
-  weight: "400",
-});
-
 function Navbar({ categories }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -26,6 +16,7 @@ function Navbar({ categories }) {
     setIsOpen(!isOpen);
   };
   const user = useSelector((state) => state.auth.user);
+  console.log(user);
   const cart = useSelector((state) => state.cart.cart);
   function SearchBar() {
     return (
@@ -69,9 +60,37 @@ function Navbar({ categories }) {
             </div>
           </nav>
           <div className="flex items-center space-x-4">
-            <button className="bg-white text-green-500 px-4 py-2 rounded-full font-semibold hover:bg-green-100">
-              Sign In
-            </button>
+            {user !== null ? (
+              <>
+                <button
+                  onClick={() => {
+                    dispatch(logoutAsync());
+                    window.location.href = "/";
+                  }}
+                  className="bg-white text-green-500 px-4 py-2 rounded-full font-semibold hover:bg-green-100"
+                >
+                  Sign Out
+                </button>
+                <div className="">
+                  <Image
+                    src={user.avatar}
+                    width={30}
+                    height={30}
+                    className="rounded-full h-10 w-10"
+                    alt="User Avatar"
+                  />
+                </div>
+              </>
+            ) : (
+              <button
+                onClick={() => {
+                  window.location.href = "/auth/login";
+                }}
+                className="bg-white text-green-500 px-4 py-2 rounded-full font-semibold hover:bg-green-100"
+              >
+                Sign In
+              </button>
+            )}
             <button className="md:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -9,8 +9,8 @@ import { Router } from "express";
 
 const router = Router();
 router.use(verifyJwt);
+router.route("/").post(addToCart).get(getCart);
+router.route("/:product_id").delete(removeFromCart);
 router.route("/create-cart").post(createCart);
-router.route("/get-cart").get(getCart);
-router.route("/add-to-cart").post(addToCart);
-router.route("/remove-from-cart").post(removeFromCart);
+
 export default router;
