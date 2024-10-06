@@ -43,9 +43,6 @@ function Navbar() {
             ApnaBazar
           </Link>
           <nav className="hidden md:flex space-x-4 font-bold pl-16">
-            <Link href="/" className="text-2xl font-bold ">
-              ApnaBazar
-            </Link>
             <nav className="hidden md:flex space-x-4 font-bold">
               <Link href="/" className="hover:text-green-200 ">
                 Home
