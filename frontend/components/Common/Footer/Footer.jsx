@@ -23,92 +23,48 @@ function Footer() {
   return (
     <>
       {/* footer-wrapper */}
-      <div className="bg-gray-700 text-white  flex flex-col lg:flex-row lg:items-center justify-evenly p-5 lg:py-14 lg:px-5 gap-y-3">
-        {/* footer-section */}
-        <div
-          className={`${baumans.className} text-xl flex flex-col gap-y-3 mb-5 lg:mb-0`}
-        >
-          {/* footer-subscribe */}
-          <h2 className="text-2xl">Join Us & Get Updates</h2>
-          <input
-            type="email"
-            placeholder="Email Address"
-            className="px-3 py-1 rounded"
-          />
-          <button
-            type="button"
-            className=" px-2 py-2 btn-primary text-white rounded hover:bg-orange-600 text-sm"
-          >
-            Subscribe
-          </button>
+   <footer className="bg-green-800 text-white py-8">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap justify-between">
+            <div className="w-full md:w-1/4 mb-6 md:mb-0">
+              <h3 className="text-xl font-semibold mb-4">QuickMart</h3>
+              <p className="mr-2">Your one-stop shop for fresh groceries and daily essentials.</p>
+            </div>
+            <div className="w-full md:w-1/4 mb-6 md:mb-0">
+              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+              <ul className="space-y-2">
+                <li><Link href="#" className="hover:text-green-300">About Us</Link></li>
+                <li><Link href="#" className="hover:text-green-300">FAQs</Link></li>
+                <li><Link href="#" className="hover:text-green-300">Privacy Policy</Link></li>
+                <li><Link href="#" className="hover:text-green-300">Terms of Service</Link></li>
+              </ul>
+            </div>
+            <div className="w-full md:w-1/4 mb-6 md:mb-0">
+              <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
+              <p>1234 Grocery Lane</p>
+              <p>Foodville, FV 56789</p>
+              <p>Phone: (555) 123-4567</p>
+              <p>Email: support@quickmart.com</p>
+            </div>
+            <div className="w-full md:w-1/4">
+              <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
+              <div className="flex space-x-4">
+                {['facebook', 'twitter', 'instagram', 'youtube'].map((social) => (
+                  <a key={social} href="#" className="hover:text-green-300">
+                    <span className="sr-only">{social}</span>
+                    <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
+                    </svg>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="mt-8 text-center">
+            <p>&copy; 2024 QuickMart. All rights reserved.</p>
+          </div>
         </div>
-
-        <div className="">
-          <h3 className={`${baumans.className} text-xl`}>Get to Know Us</h3>
-          <ul className={`${AlegreyaSans.className} lg:mt-3 `}>
-            <li className="hover:cursor-pointer hover:underline">
-              <Link href="/about">About us</Link>
-            </li>
-            <li className="hover:cursor-pointer hover:underline">
-              <Link href="/contact">Contact us</Link>
-            </li>
-            <li className="hover:cursor-pointer hover:underline">
-              <Link href="/">How to Shop</Link>
-            </li>
-            <li className="hover:cursor-pointer hover:underline">
-              <Link href="/">News & Blogs</Link>
-            </li>
-          </ul>
-        </div>
-        <div className="">
-          <h3 className={`${baumans.className} text-xl`}>Help</h3>
-          <ul className={`${AlegreyaSans.className} lg:mt-3 `}>
-            <li className="hover:cursor-pointer hover:underline">
-              Shipping & Delivery
-            </li>
-            <li className="hover:cursor-pointer hover:underline">
-              Cancellation & Returns
-            </li>
-            <li className="hover:cursor-pointer hover:underline">Payment</li>
-            <li className="hover:cursor-pointer hover:underline">
-              Track Order
-            </li>
-          </ul>
-        </div>
-        <div className="">
-          <h3 className={`${baumans.className} text-xl`}>Contact</h3>
-          <ul className={`${AlegreyaSans.className} lg:mt-3 `}>
-            <li className="hover:cursor-pointer hover:underline">
-              +91 5566223344
-            </li>
-            <li className="hover:cursor-pointer hover:underline">
-              mailUs@company.com
-            </li>
-            <li className="hover:cursor-pointer hover:underline">
-              154 Jain Villa,
-              <br /> Ghaziabad 201204
-            </li>
-          </ul>
-        </div>
-        {/* footer-bottom */}
-        <div className={`${baumans.className}  `}>
-          <p>
-            &copy; 2024 Apna Bazar,
-            <br /> All Rights Reserved
-          </p>
-          <ul className={`${AlegreyaSans.className} lg:mt-3 `}>
-            <li className="hover:cursor-pointer hover:underline">
-              Privacy Policy
-            </li>
-            <li className="hover:cursor-pointer hover:underline">
-              Terms of Service
-            </li>
-            <li className="hover:cursor-pointer hover:underline">
-              Shipping Policy
-            </li>
-          </ul>
-        </div>
-      </div>
+      </footer>
     </>
   );
 }
