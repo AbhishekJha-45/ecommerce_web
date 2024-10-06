@@ -8,9 +8,8 @@ import { FaCartShopping } from "react-icons/fa6";
 import { CgProfile } from "react-icons/cg";
 import { menuItems } from "./data";
 import { useSelector } from "react-redux";
-import DropDown from "@components/DropDown/DropDown";
 import DropdownUser from "./DropdownUser";
-function Navbar({categories}) {
+function Navbar({ categories }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -21,63 +20,48 @@ function Navbar({categories}) {
 
   return (
     <>
-      <main className="header mx-auto max-w-7x" id="">
-        <header className="flex w-full h-20 justify-between lg:px-14">
-          <ul className="flex gap-x-5  items-center text-black">
-            <li className="text-3xl pr-5">
-              <Link href="/">ApnaBazar</Link>
-            </li>
-            {menuItems.map((item, i) => {
-              return (
-                <li key={i}>
-                  <Link href={item.link}>{item.title}</Link>
-                </li>
-              );
-            })}
-            <DropDown
-              list={categories}
-            />
-          </ul>
-
-          <div className="flex items-center">
-            <input
-              type="search"
-              placeholder="Search for products, brand and more "
-              className="placeholder:italic block bg-white outline outline-2 outline-orange-500 w-[18vw] px-4 py-3  text-sm text-gray-800 rounded-l-xl "
-            />
-            <button
-              type="submit"
-              className="bg-orange-500 hover:bg-orange-700  text-white font-bold py-3.5 px-4 rounded-r-xl"
-            >
-              <FaSearch />
+      <header className="bg-green-500 text-white">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <Link href="/" className="text-2xl font-bold">
+            QuickMart
+          </Link>
+          <nav className="hidden md:flex space-x-4">
+            <Link href="#" className="hover:text-green-200">
+              Home
+            </Link>
+            <Link href="#" className="hover:text-green-200">
+              Categories
+            </Link>
+            <Link href="#" className="hover:text-green-200">
+              Offers
+            </Link>
+            <Link href="#" className="hover:text-green-200">
+              Contact
+            </Link>
+          </nav>
+          <div className="flex items-center space-x-4">
+            <button className="bg-white text-green-500 px-4 py-2 rounded-full font-semibold hover:bg-green-100">
+              Sign In
+            </button>
+            <button className="md:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
             </button>
           </div>
-          <ul className="flex justify-center items-center gap-x-5">
-            <li className="">
-              {user ? (
-                <DropdownUser user={user} />
-              ) : (
-                <Link href="/auth/login">
-                  <CgProfile className="text-2xl" />
-                </Link>
-              )}
-            </li>
-            <li>
-              <FaRegHeart className="text-2xl cursor-pointer" />
-            </li>
-            <li>
-              <Link href="/cart" className="flex">
-                <FaCartShopping className="text-2xl cursor-pointer z-10" />
-                {cart.length > 0 && user !== null ? (
-                  <span className="absolute top-3 right-[3.45rem] bg-[#f97316] rounded-full h-5 flex justify-center items-center w-5 text-sm">
-                    {cart.length}
-                  </span>
-                ) : null}
-              </Link>
-            </li>
-          </ul>
-        </header>
-      </main>
+        </div>
+      </header>
     </>
   );
 }
