@@ -62,6 +62,7 @@ function ProductCard({ product }) {
             <button
               className="outline outline-1 outline-black p-1 active:scale-95"
               onClick={() => handleAddToCart(product.id)}
+
             >
               <FiMinus />
             </button>
