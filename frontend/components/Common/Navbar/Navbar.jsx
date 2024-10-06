@@ -9,6 +9,7 @@ import { CgProfile } from "react-icons/cg";
 import { menuItems } from "./data";
 import { useSelector } from "react-redux";
 import DropdownUser from "./DropdownUser";
+import { Search } from "lucide-react";
 function Navbar({ categories }) {
   const [isOpen, setIsOpen] = useState(false);
 
