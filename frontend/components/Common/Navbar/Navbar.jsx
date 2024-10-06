@@ -20,17 +20,14 @@ function Navbar({ categories }) {
             QuickMart
           </Link>
           <nav className="hidden md:flex space-x-4">
-            <Link href="#" className="hover:text-green-200">
+            <Link href="/" className="hover:text-green-200">
               Home
             </Link>
-            <Link href="#" className="hover:text-green-200">
-              Categories
+            <Link href="/products" className="hover:text-green-200">
+              Products
             </Link>
             <Link href="#" className="hover:text-green-200">
-              Offers
-            </Link>
-            <Link href="#" className="hover:text-green-200">
-              Contact
+              Support
             </Link>
           </nav>
           <div className="flex items-center space-x-4">
