@@ -10,6 +10,14 @@ import { menuItems } from "./data";
 import { useSelector } from "react-redux";
 import DropdownUser from "./DropdownUser";
 import { Search } from "lucide-react";
+import { Gabriela } from "next/font/google";
+
+const gabreila = Gabriela({
+  subsets: ["latin"],
+  display: "swap",
+  weight: "400",
+});
+
 function Navbar({ categories }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -116,7 +124,7 @@ function Navbar({ categories }) {
           <Link
             href="/"
             // className={`text-2xl font-bold md:text-3xl `}
-            className={`${aloha.className} font-semibold text-2xl`}
+            className={`${gabreila.className} font-semibold text-2xl`}
           >
             ApnaBazar
           </Link>
