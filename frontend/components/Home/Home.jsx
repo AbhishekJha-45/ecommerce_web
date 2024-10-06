@@ -86,11 +86,14 @@ export default function Home() {
               </div>
               <div className="md:w-1/2">
                 <Image
-                  src="/placeholder.svg"
+                  src={
+                    "/Logo/vecteezy_shopping-cart-full-of-food-and-drinks-and-supermarket_29628476.jpeg"
+                  }
                   alt="Fresh groceries"
                   width={600}
                   height={400}
-                  className="rounded-lg shadow-xl"
+                  priority
+                  className="rounded-lg shadow-xl object-contain"
                 />
               </div>
             </div>
