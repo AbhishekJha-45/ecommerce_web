@@ -2,7 +2,8 @@ import Checkout from "./Checkout";
 
 export const metadata = {
   title: "Apna Bazar | Checkout",
-  description: "Get your daily essentials delivered to your doorstep in minutes!",
+  description:
+    "Get your daily essentials delivered to your doorstep in minutes!",
   keywords: "checkout, online shopping, grocery delivery, payment",
   author: "Apna Bazar Team",
   viewport: "width=device-width, initial-scale=1",
@@ -11,7 +12,8 @@ export const metadata = {
   // Open Graph tags
   openGraph: {
     title: "Apna Bazar | Checkout",
-    description: "Get your daily essentials delivered to your doorstep in minutes!",
+    description:
+      "Get your daily essentials delivered to your doorstep in minutes!",
     url: "https://apnabazar.com/checkout",
     siteName: "Apna Bazar",
     images: [
@@ -29,7 +31,8 @@ export const metadata = {
     card: "summary_large_image",
     site: "@apnabazar",
     title: "Apna Bazar | Checkout",
-    description: "Get your daily essentials delivered to your doorstep in minutes!",
+    description:
+      "Get your daily essentials delivered to your doorstep in minutes!",
     image: "https://apnabazar.com/images/checkout.png",
   },
   // Additional meta tags
@@ -41,9 +44,8 @@ export const metadata = {
   },
 };
 
-
-function page() {
+function CheckoutPage() {
   return <Checkout />;
 }
 
-export default page;
+export default CheckoutPage;

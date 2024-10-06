@@ -2,13 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { FaRegHeart } from "react-icons/fa";
-import { FaSearch } from "react-icons/fa";
-import { FaCartShopping } from "react-icons/fa6";
-import { CgProfile } from "react-icons/cg";
-import { menuItems } from "./data";
 import { useSelector } from "react-redux";
-import DropdownUser from "./DropdownUser";
 import { Search } from "lucide-react";
 import { Gabriela } from "next/font/google";
 
@@ -18,7 +12,7 @@ const gabreila = Gabriela({
   weight: "400",
 });
 
-function Navbar({ categories }) {
+function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
