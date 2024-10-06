@@ -1,54 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ChevronDown, ChevronUp, Star, ShoppingCart } from "lucide-react";
-
-const categories = ["All", "Electronics", "Clothing", "Books", "Home & Garden"];
-const brands = ["Apple", "Samsung", "Nike", "Adidas", "Amazon Basics"];
-
-const products = [
-  {
-    id: 1,
-    name: "Wireless Earbuds",
-    category: "Electronics",
-    brand: "Apple",
-    price: 159,
-    rating: 4.5,
-  },
-  {
-    id: 2,
-    name: "Running Shoes",
-    category: "Clothing",
-    brand: "Nike",
-    price: 120,
-    rating: 4.2,
-  },
-  {
-    id: 3,
-    name: "Smart TV",
-    category: "Electronics",
-    brand: "Samsung",
-    price: 799,
-    rating: 4.7,
-  },
-  {
-    id: 4,
-    name: "Yoga Mat",
-    category: "Home & Garden",
-    brand: "Amazon Basics",
-    price: 20,
-    rating: 4.0,
-  },
-  {
-    id: 5,
-    name: "Bestselling Novel",
-    category: "Books",
-    brand: "Amazon Basics",
-    price: 15,
-    rating: 4.8,
-  },
-  // Add more products as needed
-];
+import { ShoppingCart } from "lucide-react";
 
 export default function page({ data }) {
   console.log(data);
@@ -85,10 +38,6 @@ export default function page({ data }) {
           return 0;
       }
     });
-
-  const toggleFilter = (filter) => {
-    setExpandedFilters((prev) => ({ ...prev, [filter]: !prev[filter] }));
-  };
 
   const toggleBrand = (brand) => {
     setSelectedBrands((prev) =>
@@ -147,24 +96,24 @@ export default function page({ data }) {
         </div>
 
         {/* Brand Filter */}
-        <div className="mb-6">
-          <h3 className="text-lg font-semibold mb-2">Brand</h3>
-          <div className="space-y-2">
-            {brands.map((brand) => (
-              <label key={brand} className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={selectedBrands.includes(brand)}
-                  onChange={() => toggleBrand(brand)}
-                  className="form-checkbox text-indigo-600"
-                />
-                <span>{brand}</span>
-              </label>
-            ))}
+        {brands.length > 1 && (
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-2">Brand</h3>
+            <div className="space-y-2">
+              {brands.map((brand) => (
+                <label key={brand} className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedBrands.includes(brand)}
+                    onChange={() => toggleBrand(brand)}
+                    className="form-checkbox text-indigo-600"
+                  />
+                  <span>{brand}</span>
+                </label>
+              ))}
+            </div>
           </div>
-        </div>
-
-        {/* Price Range Filter */}
+        )}
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-2">Price Range</h3>
           <div className="flex flex-col space-y-2">
@@ -192,8 +141,8 @@ export default function page({ data }) {
             </label>
           </div>
           <div className="mt-2 flex justify-between text-sm text-gray-600">
-            <span>${priceRange[0]}</span>
-            <span>${priceRange[1]}</span>
+            <span>₹{priceRange[0]}</span>
+            <span>₹{priceRange[1]}</span>
           </div>
         </div>
       </div>
@@ -240,14 +189,24 @@ export default function page({ data }) {
                 <p className="text-gray-600 mb-4">{product.category.name}</p>
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-2xl font-bold text-indigo-600">
-                    ${product.price.toFixed(2)}
+                    ₹{product.price.toFixed(2)}
                   </span>
                   <div className="text-sm text-gray-500">
-                    Stock: {product.stock}
+                    {/* Stock: {product.stock} */}
+                    {product.stock > 0 ? (
+                      product.stock < 11 ? (
+                        <p className="text-[red]">Only Few Items Left</p>
+                      ) : (
+                        "In Stock"
+                      )
+                    ) : (
+                      "Out of Stock"
+                    )}
                   </div>
                 </div>
                 <button
                   onClick={() => addToCart(product)}
+                  disabled={product.stock === 0}
                   className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center"
                 >
                   <ShoppingCart className="h-5 w-5 mr-2" />

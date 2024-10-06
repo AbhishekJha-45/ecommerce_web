@@ -1,6 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import ProductCard from "../../components/Common/Cards/ProductCard";
+
+
 export default function Home() {
   const categories = [
     {
